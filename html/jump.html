@@ -1,0 +1,35 @@
+<html>
+   <script>
+	  function jumpIfNecessary(){
+		  var querystring = document.location.search ;
+		  if(querystring.length == 0){
+			 return;
+			 //console.log("empty");
+		  }
+		  var paramTokens = querystring.substring(1).split('&');
+		  for(var i in paramTokens){
+			var namevalue = paramTokens[i].split('=');
+			var param_name = namevalue[0];
+			var param_value = namevalue[1];
+			
+			if(param_name === 't'
+				 || param_name === 'to' 
+				 || param_name === 'redirect'){ 
+				document.location.href = wrapUrl(param_value)
+			}
+			//console.log(namevalue[0],namevalue[1]);
+		  }
+	  }
+	  
+	  function wrapUrl(url){
+	     if(!url.startsWith("http")){
+		    url =  "http://" + url;
+		 }
+		 return url;
+	  }
+	  jumpIfNecessary();
+   </script>
+   <body>
+      Jump with query parameter 't' / 'to' / 'redirect'
+   </body>
+</html>
